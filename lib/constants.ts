@@ -59,3 +59,26 @@ export const audienceData = [
     icon: Globe,
   },
 ];
+
+export const industries = [
+  'Information Technology (IT) & Software Development',
+  'Healthcare & Medical',
+  'Education & Training',
+  'Finance & Accounting',
+  'Marketing, Advertising & PR',
+  'Sales & Retail',
+  'Human Resources & Recruitment',
+  ' Engineering & Manufacturing',
+  'Construction & Real Estate',
+  'Hospitality & Tourism',
+  'Transportation & Logistics',
+  ' Legal Services',
+  'Arts, Media & Entertainment',
+  'Non-Profit & Charity',
+  'Government & Public Sector',
+  'Agriculture & Farming',
+  'Science & Research',
+  'Telecommunications',
+  'Customer Service & Support',
+  'Administrative & Office Support',
+];
