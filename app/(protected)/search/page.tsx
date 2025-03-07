@@ -111,7 +111,7 @@ export default function SearchPage() {
             </div>
           </form>
         </Form>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-6 place-items-center sm:place-items-start'>
+        <div className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'>
           <Job />
           <Job />
           <Job />

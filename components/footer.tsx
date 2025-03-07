@@ -12,14 +12,16 @@ export default function Footer() {
           <Image
             src={'/logo-bg-trans.png'}
             alt='logo'
-            width={100}
-            height={100}
+            width={80}
+            height={80}
             priority
             className='object-center object-cover'
           />
-          <div>
-            <h3>Sitemap</h3>
-            <div className='flex items-center gap-4'>
+          <div className='flex flex-col items-start gap-1'>
+            <h3 className='text-xl font-[family-name:var(--font-bebas_neue)] tracking-wider'>
+              Sitemap
+            </h3>
+            <div className='flex items-center gap-4 text-sm'>
               {routes.map((route) => (
                 <Link href={route.href} key={route.href}>
                   {route.label}
@@ -28,7 +30,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <p className='flex items-center gap-2 text-sm'>
+        <p className='flex items-center gap-2 text-xs'>
           <Copyright className='size-4' /> {date.getFullYear()} Rights Reserved.
           Created by Hulisani Sadiki
         </p>
