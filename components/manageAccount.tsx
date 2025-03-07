@@ -5,7 +5,7 @@ import Profile from './profile';
 
 export default function ManageAccount({ tab }: { tab: string | null }) {
   return (
-    <section className='min-h-dvh grid grid-cols-1 grid-rows-12 sm:grid-cols-12 divide-x-1'>
+    <section className='min-h-dvh grid grid-cols-1 grid-rows-12 sm:grid-cols-12 divide-y-1 sm:divide-x-1'>
       <aside className='sm:col-span-2 flex flex-col items-center gap-1 p-2 row-span-1 sm:row-span-12'>
         <Button
           asChild

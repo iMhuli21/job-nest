@@ -14,7 +14,7 @@ export default function page() {
         <span className='opacity-60'>Manage your account.</span>
       </div>
       <section className='min-h-dvh space-y-7'>
-        <div className='flex items-center gap-4 '>
+        <div className='flex items-center justify-center sm:justify-start gap-4 '>
           <Image
             src={'/avatar.png'}
             alt='avatar'

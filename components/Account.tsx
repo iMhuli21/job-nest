@@ -17,7 +17,7 @@ export default function Account() {
             By initiating this action your related data including your job posts
             will all be deleted. This action is irrevisable.
           </p>
-          <Button className='flex items-center' variant='destructive'>
+          <Button className='flex items-center mt-3' variant='destructive'>
             <Trash2 />
             <span>Delete Account</span>
           </Button>
