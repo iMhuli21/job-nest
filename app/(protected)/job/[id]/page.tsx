@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
 import { Building2, HandCoins, MapPinned, Clock2Icon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import HeaderTitle from '@/components/headerTitle';
 
 interface Props {
   params: Promise<{
@@ -13,12 +14,10 @@ export default async function page({ params }: Props) {
   const { id } = await params;
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5'>
-      <div className='flex flex-col items-center justify-center gap-1'>
-        <h2 className='font-[family-name:var(--font-bebas_neue)] text-2xl text-center'>
-          View job
-        </h2>
-        <span className='opacity-60'>Find out all the details of the job.</span>
-      </div>
+      <HeaderTitle
+        title='View job'
+        subtitle='Find out all the details of the job.'
+      />
       <section className='min-h-dvh w-full max-w-[900px] mx-auto p-4 flex flex-col items-start gap-4'>
         <Image
           src={'/Job.png'}

@@ -1,4 +1,5 @@
-import Job from '@/components/job';
+import HeaderTitle from '@/components/headerTitle';
+import UserJob from '@/components/userJob';
 import { Settings, Briefcase, Mail, CalendarDaysIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -7,12 +8,8 @@ import React from 'react';
 export default function page() {
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5'>
-      <div className='flex flex-col items-center justify-center gap-1'>
-        <h2 className='font-[family-name:var(--font-bebas_neue)] text-2xl text-center'>
-          Profile
-        </h2>
-        <span className='opacity-60'>Manage your account.</span>
-      </div>
+      <HeaderTitle title='Profile' subtitle='Manage your account.' />
+
       <section className='min-h-dvh space-y-7'>
         <div className='flex items-center justify-center sm:justify-start gap-4 '>
           <Image
@@ -52,15 +49,15 @@ export default function page() {
         </div>
         <p className='text-center text-sm opacity-60'>Jobs you have posted.</p>
         <div className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'>
-          <Job />
-          <Job />
-          <Job />
-          <Job />
-          <Job />
-          <Job />
-          <Job />
-          <Job />
-          <Job />
+          <UserJob />
+          <UserJob />
+          <UserJob />
+          <UserJob />
+          <UserJob />
+          <UserJob />
+          <UserJob />
+          <UserJob />
+          <UserJob />
         </div>
       </section>
     </main>

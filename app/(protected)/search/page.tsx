@@ -22,6 +22,7 @@ import { searchSchema, SearchType } from '@/lib/schemas';
 import { industries } from '@/lib/constants';
 import { SearchIcon } from 'lucide-react';
 import Job from '@/components/job';
+import HeaderTitle from '@/components/headerTitle';
 
 export default function SearchPage() {
   const form = useForm<SearchType>({
@@ -44,12 +45,7 @@ export default function SearchPage() {
   };
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5'>
-      <div className='flex flex-col items-center justify-center gap-1'>
-        <h2 className='font-[family-name:var(--font-bebas_neue)] text-2xl text-center'>
-          search
-        </h2>
-        <span className='opacity-60'>Find a job that suits you.</span>
-      </div>
+      <HeaderTitle title='search' subtitle='Find a job that suits you.' />
       <section className='min-h-dvh space-y-10'>
         <Form {...form}>
           <form className='space-y-4' onSubmit={handleSubmit(searchForJob)}>
