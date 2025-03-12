@@ -9,13 +9,18 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { loginUserFn } from '@/actions/loginUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signInSchema, SignInType } from '@/lib/schemas';
+import { Loader2 } from 'lucide-react';
 
 export default function SignIn() {
+  const route = useRouter();
   const form = useForm<SignInType>({
     defaultValues: {
       email: '',
@@ -32,7 +37,30 @@ export default function SignIn() {
   } = form;
 
   const handleSignInAcc = async (values: SignInType) => {
-    console.log(values);
+    try {
+      const res = await loginUserFn(values);
+
+      if (res?.error) {
+        return toast.error('Error', {
+          description: res.error,
+          className: 'font-[family-name:var(--font-nunito)]',
+        });
+      } else if (res?.success) {
+        toast.success('Success', {
+          description: res.success,
+          className: 'font-[family-name:var(--font-nunito)]',
+        });
+
+        return route.push('/jobs');
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        toast.error('Error', {
+          description: e.message,
+          className: 'font-[family-name:var(--font-nunito)]',
+        });
+      }
+    }
   };
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5 min-h-dvh flex items-center justify-center'>
@@ -94,6 +122,9 @@ export default function SignIn() {
               variant='yellow'
               className='font-semibold'
             >
+              {isSubmitting && (
+                <Loader2 className='animate-spin w-4 h-4 flex-none ' />
+              )}
               Log In
             </Button>
           </div>

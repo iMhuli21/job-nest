@@ -9,13 +9,19 @@ import {
   FormItem,
   FormLabel,
 } from '@/components/ui/form';
+import { toast } from 'sonner';
+import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signUpSchema, SignUpType } from '@/lib/schemas';
+import { createAccountFn } from '@/actions/createAccount';
 
-export default function SignUp() {
+export default function SignUpPage() {
+  const route = useRouter();
+
   const form = useForm<SignUpType>({
     defaultValues: {
       contactNumber: '',
@@ -23,6 +29,7 @@ export default function SignUp() {
       firstName: '',
       lastName: '',
       password: '',
+      jobTitle: '',
     },
     mode: 'onChange',
     resolver: zodResolver(signUpSchema),
@@ -35,8 +42,32 @@ export default function SignUp() {
   } = form;
 
   const handleCreateAcc = async (values: SignUpType) => {
-    console.log(values);
+    try {
+      const res = await createAccountFn(values);
+
+      if (res?.error) {
+        return toast.error('Error', {
+          description: res.error,
+          className: 'font-[family-name:var(--font-nunito)]',
+        });
+      } else if (res?.success) {
+        toast.success('Success', {
+          description: res.success,
+          className: 'font-[family-name:var(--font-nunito)]',
+        });
+
+        return route.push('/sign-in');
+      }
+    } catch (e) {
+      if (e instanceof Error) {
+        toast.error('Error', {
+          description: e.message,
+          className: 'font-[family-name:var(--font-nunito)]',
+        });
+      }
+    }
   };
+
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5 min-h-dvh flex items-center justify-center'>
       <Form {...form}>
@@ -114,6 +145,19 @@ export default function SignUp() {
             )}
           />
           <FormField
+            name='jobTitle'
+            control={control}
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel>Job Title</FormLabel>
+                <FormControl>
+                  <Input placeholder='Enter Your Job Title' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
             name='password'
             control={control}
             render={({ field }) => (
@@ -132,11 +176,13 @@ export default function SignUp() {
           />
           <div className='w-fit ml-auto'>
             <Button
-              type='submit'
               disabled={isSubmitting}
               variant='yellow'
-              className='font-semibold'
+              className='font-semibold flex items-center gap-2'
             >
+              {isSubmitting && (
+                <Loader2 className='animate-spin w-4 h-4 flex-none ' />
+              )}
               Create Account
             </Button>
           </div>

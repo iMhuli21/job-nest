@@ -1,3 +1,4 @@
+import { auth, signOut } from '@/auth';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +10,11 @@ import {
 import { routes } from '@/lib/constants';
 import Link from 'next/link';
 import { CgMenuRight } from 'react-icons/cg';
+import { Button } from './ui/button';
+import SignOutBtn from './signOutBtn';
 
-export default function MenuDropdown() {
+export default async function MenuDropdown() {
+  const session = await auth();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -26,7 +30,15 @@ export default function MenuDropdown() {
             </DropdownMenuItem>
           ))}
         </div>
-        <DropdownMenuItem>Log Out</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          {session ? (
+            <SignOutBtn />
+          ) : (
+            <Link href='/sign-in' className='h-9 px-4 py-2 w-full'>
+              Sign In
+            </Link>
+          )}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

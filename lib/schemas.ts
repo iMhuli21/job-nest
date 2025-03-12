@@ -36,6 +36,7 @@ export const signUpSchema = z.object({
   email: z
     .string({ required_error: 'Email is required.' })
     .email('Invalid Email.'),
+  jobTitle: z.string({ required_error: 'Job Title is required.' }),
   password: z
     .string({ required_error: 'Password is required.' })
     .min(8, 'Password length must atleast be 8 characters..'),

@@ -1,5 +1,8 @@
+import { auth } from '@/auth';
 import HeaderTitle from '@/components/headerTitle';
 import ManageJobs from '@/components/manageJobs';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 interface Props {
   searchParams: Promise<{
@@ -9,6 +12,12 @@ interface Props {
 
 export default async function page({ searchParams }: Props) {
   const { tab } = await searchParams;
+
+  const session = await auth();
+
+  if (!session) {
+    redirect('/sign-in');
+  }
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5'>
       <HeaderTitle

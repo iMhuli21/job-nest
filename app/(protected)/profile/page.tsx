@@ -1,11 +1,24 @@
+import { auth } from '@/auth';
 import HeaderTitle from '@/components/headerTitle';
 import UserJob from '@/components/userJob';
 import { Settings, Briefcase, Mail, CalendarDaysIcon } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { headers } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-export default function page() {
+export default async function page() {
+  const head = await headers();
+  // const session = await auth();
+  // const pathname = head.get('x-current-path') || '';
+  // const search = head.get('x-current-search') || '';
+
+  // if (!session) {
+  //   const callbackUrl = encodeURIComponent(pathname + search);
+
+  //   redirect(`/sign-in?callbackUrl=${callbackUrl}`);
+  // }
+
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5'>
       <HeaderTitle title='Profile' subtitle='Manage your account.' />

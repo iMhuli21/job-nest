@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
-import { Bebas_Neue, Nunito } from 'next/font/google';
-import { ThemeProvider } from '@/components/themeProvider';
 import './globals.css';
+import type { Metadata } from 'next';
 import Navbar from '@/components/navbar';
 import Footer from '@/components/footer';
+import { Toaster } from '@/components/ui/sonner';
+import { Bebas_Neue, Nunito } from 'next/font/google';
+import { ThemeProvider } from '@/components/themeProvider';
 
 const bebasNeue = Bebas_Neue({
   variable: '--font-bebas_neue',
@@ -37,6 +38,7 @@ export default function RootLayout({
         >
           <Navbar />
           {children}
+          <Toaster />
           <Footer />
         </ThemeProvider>
       </body>
