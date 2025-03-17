@@ -82,3 +82,15 @@ export const industries = [
   'Customer Service & Support',
   'Administrative & Office Support',
 ];
+
+export const experienceLevels = [
+  'Intern/Entry-Level',
+  'Junior-Level',
+  'Mid-Level',
+  'Senior-Level',
+  'Manager',
+  'Director',
+  'Executive',
+];
+
+export const contractTypes = ['Full-Time', 'Part-Time', 'Fixed-Term'];

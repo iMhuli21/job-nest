@@ -1,8 +1,8 @@
 import { auth } from '@/auth';
-import HeaderTitle from '@/components/headerTitle';
-import ManageJobs from '@/components/manageJobs';
-import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
+import ManageJobs from '@/components/manageJobs';
+import HeaderTitle from '@/components/headerTitle';
+import CreateJobBtn from '@/components/createJobBtn';
 
 interface Props {
   searchParams: Promise<{
@@ -26,6 +26,7 @@ export default async function page({ searchParams }: Props) {
       />
       <section className='min-h-dvh'>
         <ManageJobs tab={tab} />
+        <CreateJobBtn />
       </section>
     </main>
   );

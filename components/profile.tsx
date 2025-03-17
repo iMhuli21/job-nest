@@ -1,7 +1,52 @@
-import { Button } from './ui/button';
-import { Input } from './ui/input';
+'use client';
 
-export default function Profile() {
+import {
+  Form,
+  FormItem,
+  FormField,
+  FormLabel,
+  FormMessage,
+  FormControl,
+} from '@/components/ui/form';
+import { Loader2 } from 'lucide-react';
+import { useForm } from 'react-hook-form';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { profileSchema, ProfileType } from '@/lib/schemas';
+
+interface Props {
+  user: {
+    contactNumber: string;
+    fullName: string;
+    email: string;
+    jobTitle: string;
+    createdAt: Date;
+    cvUrl: string | null;
+  } | null;
+}
+
+export default function Profile({ user }: Props) {
+  const form = useForm<ProfileType>({
+    defaultValues: {
+      contactNumber: user?.contactNumber,
+      email: user?.email,
+      fullName: user?.fullName,
+      jobTitle: user?.jobTitle,
+    },
+    mode: 'onChange',
+    resolver: zodResolver(profileSchema),
+  });
+
+  const {
+    control,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = form;
+
+  const handleProfileUpdate = async (values: ProfileType) => {
+    console.log(values);
+  };
   return (
     <div className='px-2 space-y-4'>
       <div className='flex flex-col items-start gap-1'>
@@ -10,30 +55,82 @@ export default function Profile() {
           Keep your information up to date.
         </span>
       </div>
-      <div className='max-w-[900px] w-full flex flex-col items-start gap-7'>
-        <div className='w-full border-2 border-dashed rounded-md flex items-center justify-center p-4 h-40 hover:cursor-pointer bg-muted/20'>
-          <span className='opacity-50'>
-            Drag your file or click here to upload your cv.
-          </span>
-        </div>
-        <div className='flex flex-col items-start gap-2 w-full'>
-          <h4>Contact Number</h4>
-          <Input placeholder='+27123456789' />
-        </div>
-        <div className='flex flex-col items-start gap-2 w-full'>
-          <h4>Full Name</h4>
-          <Input placeholder='John Doe' />
-        </div>
-        <div className='flex flex-col items-start gap-2 w-full'>
-          <h4>Email</h4>
-          <Input placeholder='johndoe@gmail.com' />
-        </div>
-        <div className='flex flex-col items-start gap-2 w-full'>
-          <h4>Job Title</h4>
-          <Input placeholder='Frontend Developer' />
-        </div>
-        <Button variant={'yellow'}>Save Changes</Button>
-      </div>
+      <Form {...form}>
+        <form
+          className='max-w-[900px] w-full flex flex-col items-start gap-7'
+          onSubmit={handleSubmit(handleProfileUpdate)}
+        >
+          <div className='w-full border-2 border-dashed rounded-md flex items-center justify-center p-4 h-40 hover:cursor-pointer bg-muted/20'>
+            <span className='opacity-50'>
+              Drag your file or click here to upload your cv.
+            </span>
+          </div>
+          <FormField
+            name='contactNumber'
+            control={control}
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel>Contact Number</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name='fullName'
+            control={control}
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel>Full Name</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name='email'
+            control={control}
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type='email' {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            name='jobTitle'
+            control={control}
+            render={({ field }) => (
+              <FormItem className='w-full'>
+                <FormLabel>Job Title</FormLabel>
+                <FormControl>
+                  <Input {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            type='submit'
+            disabled={isSubmitting}
+            variant={'yellow'}
+            className='flex items-center gap-2'
+          >
+            {isSubmitting && (
+              <Loader2 className='animate-spin w-4 h-4 flex-none' />
+            )}
+            Save Changes
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 }

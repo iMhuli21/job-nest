@@ -13,6 +13,28 @@
   --color-foreground: var(--foreground);
 }
 
+.rich-text-editor ul {
+  list-style-type: disc;
+}
+.rich-text-editor ol {
+  list-style-type: decimal;
+}
+
+.rich-text-editor ul,
+.rich-text-editor ol {
+  padding: 0 1rem;
+  margin: 0.7rem 1rem 0rem 0.4rem;
+}
+
+.rich-text-editor li p {
+  margin-top: 0.25em;
+  margin-bottom: 0.25em;
+}
+
+.editor p {
+  margin-top: 2rem;
+}
+
 @keyframes scroll {
   0% {
     transform: translateX(0);

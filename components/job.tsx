@@ -36,7 +36,7 @@ export default function Job() {
         <MapPinned className='w-5 h-5' />
         <span>Remote</span>
       </div>
-      <div className='flex items-center gap-4 justify-between w-full'>
+      <div className='flex items-center gap-4 justify-between w-full flex-wrap'>
         <div className='flex items-center gap-2 opacity-50'>
           <HiOutlineAdjustmentsVertical className='w-5 h-5' />
           <span className='text-sm'>Senior</span>

@@ -1,23 +1,44 @@
-import { auth } from '@/auth';
-import HeaderTitle from '@/components/headerTitle';
-import UserJob from '@/components/userJob';
-import { Settings, Briefcase, Mail, CalendarDaysIcon } from 'lucide-react';
-import Image from 'next/image';
 import Link from 'next/link';
-import { headers } from 'next/headers';
+import { cache } from 'react';
+import { auth } from '@/auth';
+import prisma from '@/lib/db';
+import Image from 'next/image';
+import { format } from 'date-fns';
+import UserJob from '@/components/userJob';
 import { redirect } from 'next/navigation';
+import HeaderTitle from '@/components/headerTitle';
+import { Settings, Briefcase, Mail, CalendarDaysIcon } from 'lucide-react';
+import NotFound from '@/components/notFound';
+
+export const getProfileData = cache(async (id: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      email: true,
+      jobTitle: true,
+      createdAt: true,
+      contactNumber: true,
+      fullName: true,
+      cvUrl: true,
+    },
+  });
+  return user;
+});
 
 export default async function page() {
-  const head = await headers();
-  // const session = await auth();
-  // const pathname = head.get('x-current-path') || '';
-  // const search = head.get('x-current-search') || '';
+  const session = await auth();
 
-  // if (!session) {
-  //   const callbackUrl = encodeURIComponent(pathname + search);
+  if (!session?.user?.id) {
+    redirect(`/sign-in?returnUrl=${encodeURIComponent('/profile')}`);
+  }
 
-  //   redirect(`/sign-in?callbackUrl=${callbackUrl}`);
-  // }
+  const user = await getProfileData(session.user.id);
+
+  if (!user) {
+    return <NotFound message='User not found.' />;
+  }
 
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5'>
@@ -36,8 +57,10 @@ export default async function page() {
           <div className='flex flex-col items-start gap-2'>
             <div className='flex items-center gap-6'>
               <div className='flex flex-col items-start gap-1'>
-                <h3 className='text-lg'>John Doe</h3>
-                <span className='text-base opacity-60'>Frontend Developer</span>
+                <h3 className='text-lg capitalize'>{user.fullName}</h3>
+                <span className='text-base opacity-60 capitalize'>
+                  {user.jobTitle}
+                </span>
               </div>
               <Link href='/settings'>
                 <Settings className='opacity-60' />
@@ -51,11 +74,13 @@ export default async function page() {
             <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8'>
               <div className='flex items-center gap-2'>
                 <Mail className='opacity-60 size-5' />
-                <span className='opacity-60'>johndoe@gmail.com</span>
+                <span className='opacity-60'>{user.email}</span>
               </div>
               <div className='flex items-center gap-2'>
                 <CalendarDaysIcon className='opacity-60 size-5' />
-                <span className='opacity-60'>Joined, 11 Feb 2025</span>
+                <span className='opacity-60'>
+                  Joined, {format(user.createdAt, 'dd MMMM yyyy')}
+                </span>
               </div>
             </div>
           </div>

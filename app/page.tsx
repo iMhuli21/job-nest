@@ -24,7 +24,7 @@ export default function Home() {
               <Link href={'/search'}>Find Job</Link>
             </Button>
             <Button variant='yellow' asChild>
-              <Link href={'/jobs'}>Post Job</Link>
+              <Link href={'/job/create'}>Post Job</Link>
             </Button>
           </div>
         </div>

@@ -1,9 +1,23 @@
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import Account from './Account';
 import Profile from './profile';
+import NotFound from './notFound';
+import { Button } from '@/components/ui/button';
+import { getProfileData } from '@/app/(protected)/profile/page';
 
-export default function ManageAccount({ tab }: { tab: string | null }) {
+export default async function ManageAccount({
+  tab,
+  userId,
+}: {
+  tab: string | null;
+  userId: string;
+}) {
+  const user = await getProfileData(userId);
+
+  if (!user) {
+    return <NotFound message='User not found.' />;
+  }
+
   return (
     <section className='min-h-dvh grid grid-cols-1 grid-rows-12 sm:grid-cols-12 divide-y-1 sm:divide-x-1 sm:divide-y-0'>
       <aside className='sm:col-span-2 flex flex-col items-center gap-1 p-2 row-span-1 sm:row-span-12'>
@@ -24,7 +38,7 @@ export default function ManageAccount({ tab }: { tab: string | null }) {
       </aside>
       <div className='sm:col-span-10 p-2 row-span-11 sm:row-span-12'>
         {!tab || tab === 'profile' ? (
-          <Profile />
+          <Profile user={user} />
         ) : (
           tab === 'account' && <Account />
         )}

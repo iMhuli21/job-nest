@@ -34,6 +34,7 @@ model Job {
   closeDate                DateTime
   description              String
   experienceLevel          String
+  industry                 String
   location                 String
   rolesAndResponsibilities String
   salary                   Int

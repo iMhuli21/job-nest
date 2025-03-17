@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/form';
 import { toast } from 'sonner';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { loginUserFn } from '@/actions/loginUser';
@@ -21,6 +21,8 @@ import { Loader2 } from 'lucide-react';
 
 export default function SignIn() {
   const route = useRouter();
+  const search = useSearchParams();
+
   const form = useForm<SignInType>({
     defaultValues: {
       email: '',
@@ -50,6 +52,12 @@ export default function SignIn() {
           description: res.success,
           className: 'font-[family-name:var(--font-nunito)]',
         });
+
+        const redirectUrl = search.get('returnUrl') as string;
+
+        if (redirectUrl) {
+          return route.push(`${decodeURIComponent(redirectUrl)}`);
+        }
 
         return route.push('/jobs');
       }
