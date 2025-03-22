@@ -13,15 +13,18 @@
   --color-foreground: var(--foreground);
 }
 
-.rich-text-editor ul {
+.rich-text-editor ul,
+.editor ul {
   list-style-type: disc;
 }
-.rich-text-editor ol {
+.rich-text-editor ol,
+.editor ol {
   list-style-type: decimal;
 }
 
-.rich-text-editor ul,
-.rich-text-editor ol {
+.rich-text-editor ul .editor ul,
+.rich-text-editor ol,
+.editor ol {
   padding: 0 1rem;
   margin: 0.7rem 1rem 0rem 0.4rem;
 }
@@ -31,8 +34,12 @@
   margin-bottom: 0.25em;
 }
 
+.editor li {
+  margin-left: 1rem;
+}
+
 .editor p {
-  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 @keyframes scroll {

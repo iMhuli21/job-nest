@@ -9,8 +9,10 @@ import { redirect } from 'next/navigation';
 import HeaderTitle from '@/components/headerTitle';
 import { Settings, Briefcase, Mail, CalendarDaysIcon } from 'lucide-react';
 import NotFound from '@/components/notFound';
+import Pagination from '@/components/pagination';
+import { maxItems } from '@/lib/constants';
 
-export const getProfileData = cache(async (id: string) => {
+export const getProfileData = cache(async (id: string, page: number) => {
   const user = await prisma.user.findUnique({
     where: {
       id,
@@ -22,19 +24,46 @@ export const getProfileData = cache(async (id: string) => {
       contactNumber: true,
       fullName: true,
       cvUrl: true,
+      createdJobs: {
+        take: maxItems,
+        skip: (page - 1) * maxItems,
+      },
     },
   });
-  return user;
+
+  const numberOfJobs = await prisma.job.count({
+    where: {
+      authorId: id,
+    },
+  });
+
+  const numberOfPages = Math.ceil(numberOfJobs / maxItems);
+
+  return {
+    user,
+    numberOfPages,
+  };
 });
 
-export default async function page() {
+export default async function page({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string | null }>;
+}) {
   const session = await auth();
 
   if (!session?.user?.id) {
     redirect(`/sign-in?returnUrl=${encodeURIComponent('/profile')}`);
   }
 
-  const user = await getProfileData(session.user.id);
+  const { page } = await searchParams;
+
+  const currentPage = !page ? 1 : Number(page);
+
+  const { user, numberOfPages } = await getProfileData(
+    session.user.id,
+    currentPage
+  );
 
   if (!user) {
     return <NotFound message='User not found.' />;
@@ -69,7 +98,7 @@ export default async function page() {
             <div className='flex items-center gap-2'>
               <Briefcase className='opacity-60 size-5' />
               <span className='opacity-60'>Created Jobs</span>
-              <span className='font-medium'>+5</span>
+              <span className='font-medium'>+{user.createdJobs.length}</span>
             </div>
             <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8'>
               <div className='flex items-center gap-2'>
@@ -87,17 +116,12 @@ export default async function page() {
         </div>
         <p className='text-center text-sm opacity-60'>Jobs you have posted.</p>
         <div className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'>
-          <UserJob />
-          <UserJob />
-          <UserJob />
-          <UserJob />
-          <UserJob />
-          <UserJob />
-          <UserJob />
-          <UserJob />
-          <UserJob />
+          {user.createdJobs.map((job) => (
+            <UserJob key={job.id} job={job} />
+          ))}
         </div>
       </section>
+      <Pagination href='/profile' numberOfPages={numberOfPages} />
     </main>
   );
 }

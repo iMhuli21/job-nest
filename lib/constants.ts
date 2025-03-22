@@ -94,3 +94,5 @@ export const experienceLevels = [
 ];
 
 export const contractTypes = ['Full-Time', 'Part-Time', 'Fixed-Term'];
+
+export const maxItems = 10;

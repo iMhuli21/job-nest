@@ -3,12 +3,20 @@
 import { Tabs, TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 import { useRouter } from 'next/navigation';
 import Job from './job';
+import { Job as Jobtype } from '@prisma/client';
 
 interface Props {
   tab: string | null;
+  jobs:
+    | {
+        data: Jobtype[];
+        numPages: number;
+      }
+    | null
+    | undefined;
 }
 
-export default function ManageJobs({ tab }: Props) {
+export default function ManageJobs({ tab, jobs }: Props) {
   const route = useRouter();
   const activeTab = !tab ? 'for-you' : tab;
   return (
@@ -28,31 +36,13 @@ export default function ManageJobs({ tab }: Props) {
         value='for-you'
         className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'
       >
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
+        {jobs?.data && jobs.data.map((job) => <Job key={job.id} job={job} />)}
       </TabsContent>
       <TabsContent
         value='all'
         className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'
       >
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
-        <Job />
+        {jobs?.data && jobs.data.map((job) => <Job key={job.id} job={job} />)}
       </TabsContent>
     </Tabs>
   );
