@@ -1,11 +1,8 @@
 'use client';
 
-import Link from 'next/link';
-import { getVisiblePages } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { maxItems } from '@/lib/constants';
 
 export default function Pagination({
   numberOfPages,
@@ -19,6 +16,8 @@ export default function Pagination({
   const search = useSearchParams();
 
   const tab = search.get('tab') as string;
+  const industry = search.get('industry') as string;
+  const query = search.get('query') as string;
 
   const currentPage = !search.get('page') ? 1 : Number(search.get('page'));
 
@@ -47,20 +46,38 @@ export default function Pagination({
   const paginationPages = getVisiblePages();
 
   const handlePrevious = () => {
-    if (tab) {
+    if (industry || query) {
+      return route.push(
+        `${href}?industry=${encodeURIComponent(
+          industry
+        )}&query=${encodeURIComponent(query)}&page=${currentPage - 1}`
+      );
+    } else if (tab) {
       return route.push(`${href}?tab=${tab}&page=${currentPage - 1}`);
     }
-    return route.push(`${href}?tab=${tab}&page=${currentPage - 1}`);
+    return route.push(`${href}?page=${currentPage - 1}`);
   };
   const handleNext = () => {
-    if (tab) {
+    if (industry || query) {
+      return route.push(
+        `${href}?industry=${encodeURIComponent(
+          industry
+        )}&query=${encodeURIComponent(query)}&page=${currentPage + 1}`
+      );
+    } else if (tab) {
       return route.push(`${href}?tab=${tab}&page=${currentPage + 1}`);
     }
     return route.push(`${href}?page=${currentPage + 1}`);
   };
 
   const handlePagePress = (page: number) => {
-    if (tab) {
+    if (industry || query) {
+      return route.push(
+        `${href}?industry=${encodeURIComponent(
+          industry
+        )}&query=${encodeURIComponent(query)}&page=${page}`
+      );
+    } else if (tab) {
       return route.push(`${href}?tab=${tab}&page=${page}`);
     }
     return route.push(`${href}?page=${page}`);

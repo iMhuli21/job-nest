@@ -1,22 +1,16 @@
 'use client';
 
-import { Tabs, TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
-import { useRouter } from 'next/navigation';
 import Job from './job';
-import { Job as Jobtype } from '@prisma/client';
+import { JobData } from '@/lib/constants';
+import { useRouter } from 'next/navigation';
+import { Tabs, TabsContent, TabsTrigger, TabsList } from '@/components/ui/tabs';
 
 interface Props {
   tab: string | null;
-  jobs:
-    | {
-        data: Jobtype[];
-        numPages: number;
-      }
-    | null
-    | undefined;
+  data: JobData | null | undefined;
 }
 
-export default function ManageJobs({ tab, jobs }: Props) {
+export default function ManageJobs({ tab, data }: Props) {
   const route = useRouter();
   const activeTab = !tab ? 'for-you' : tab;
   return (
@@ -36,13 +30,13 @@ export default function ManageJobs({ tab, jobs }: Props) {
         value='for-you'
         className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'
       >
-        {jobs?.data && jobs.data.map((job) => <Job key={job.id} job={job} />)}
+        {data?.jobs && data.jobs.map((job) => <Job key={job.id} job={job} />)}
       </TabsContent>
       <TabsContent
         value='all'
         className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'
       >
-        {jobs?.data && jobs.data.map((job) => <Job key={job.id} job={job} />)}
+        {data?.jobs && data.jobs.map((job) => <Job key={job.id} job={job} />)}
       </TabsContent>
     </Tabs>
   );

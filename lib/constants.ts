@@ -1,3 +1,4 @@
+import { Job } from '@prisma/client';
 import { Briefcase, GraduationCap, Globe, Paintbrush } from 'lucide-react';
 
 type Routes = {
@@ -96,3 +97,8 @@ export const experienceLevels = [
 export const contractTypes = ['Full-Time', 'Part-Time', 'Fixed-Term'];
 
 export const maxItems = 10;
+
+export type JobData = {
+  jobs: Job[];
+  numPages: number;
+};

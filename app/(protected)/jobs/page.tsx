@@ -40,6 +40,7 @@ const getJobs = cache(
         where: {
           title: {
             contains: user.jobTitle,
+            mode: 'insensitive',
           },
         },
       });
@@ -48,13 +49,14 @@ const getJobs = cache(
         where: {
           title: {
             contains: user.jobTitle,
+            mode: 'insensitive',
           },
         },
       });
       const numPages = Math.ceil(numberOfJobs / maxItems);
 
       return {
-        data: jobs,
+        jobs,
         numPages,
       };
     } else if (tab === 'all') {
@@ -68,7 +70,7 @@ const getJobs = cache(
       const numPages = Math.ceil(numberOfJobs / maxItems);
 
       return {
-        data: jobs,
+        jobs,
         numPages,
       };
     }
@@ -89,9 +91,9 @@ export default async function page({ searchParams }: Props) {
     return redirect(`/sign-in?returnUrl=${callbackUrl}`);
   }
 
-  const jobs = await getJobs(tab, page, session.user.id);
+  const data = await getJobs(tab, page, session.user.id);
 
-  if (!jobs) {
+  if (!data) {
     return <NotFound message='Jobs not found..' />;
   }
 
@@ -102,10 +104,10 @@ export default async function page({ searchParams }: Props) {
         subtitle='These are the latest job opportunities.'
       />
       <section className='min-h-dvh'>
-        <ManageJobs tab={tab} jobs={jobs} />
+        <ManageJobs tab={tab} data={data} />
         <CreateJobBtn />
       </section>
-      <Pagination href={'/jobs'} numberOfPages={jobs.numPages} />
+      <Pagination href={'/jobs'} numberOfPages={data.numPages} />
     </main>
   );
 }
