@@ -107,7 +107,7 @@ export default function Pagination({
       </div>
       <Button
         className='flex items-center gap-2'
-        disabled={numberOfPages === currentPage}
+        disabled={numberOfPages === currentPage || !numberOfPages}
         variant={'outline'}
         onClick={handleNext}
       >

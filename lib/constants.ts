@@ -102,3 +102,19 @@ export type JobData = {
   jobs: Job[];
   numPages: number;
 };
+
+export type Question = {
+  type: 'multiple-choice' | 'text' | 'file-upload';
+  question: string;
+};
+
+export type Answers = {
+  response: string;
+} & Question;
+
+export const avatars = [
+  'https://pc92dhkjxi.ufs.sh/f/8NNLpGsaQ1RnLUU0pEZkh31pATEdx0i7J9Df6jtreRn4Zm8N',
+  'https://pc92dhkjxi.ufs.sh/f/8NNLpGsaQ1RnIqV0h0YhbHVDkEgwv2TX6ZL9cyMRzpOSWUut',
+  'https://pc92dhkjxi.ufs.sh/f/8NNLpGsaQ1Rnn6MtQqGFXOqRy2JzGkamM4vwBogPhYEb6Z5N',
+  'https://pc92dhkjxi.ufs.sh/f/8NNLpGsaQ1RnOPjwnB1BcxF2QjCWTtHRrI7MoPvGV5siE3wK',
+];

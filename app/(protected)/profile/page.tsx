@@ -11,6 +11,7 @@ import { Settings, Briefcase, Mail, CalendarDaysIcon } from 'lucide-react';
 import NotFound from '@/components/notFound';
 import Pagination from '@/components/pagination';
 import { maxItems } from '@/lib/constants';
+import AvatarDialog from '@/components/avatarDialog';
 
 export const getProfileData = cache(async (id: string, page: number) => {
   const user = await prisma.user.findUnique({
@@ -18,6 +19,7 @@ export const getProfileData = cache(async (id: string, page: number) => {
       id,
     },
     select: {
+      avatarUrl: true,
       email: true,
       jobTitle: true,
       createdAt: true,
@@ -75,14 +77,16 @@ export default async function page({
 
       <section className='min-h-dvh space-y-7'>
         <div className='flex items-center justify-center sm:justify-start gap-4 '>
-          <Image
-            src={'/avatar.png'}
-            alt='avatar'
-            width={150}
-            height={150}
-            className='object-cover object-center rounded-full border-2'
-            priority
-          />
+          <AvatarDialog>
+            <Image
+              src={user.avatarUrl!}
+              alt='avatar'
+              width={150}
+              height={150}
+              className='w-[150px] h-[150px] object-cover object-center rounded-full border-2'
+              priority
+            />
+          </AvatarDialog>
           <div className='flex flex-col items-start gap-2'>
             <div className='flex items-center gap-6'>
               <div className='flex flex-col items-start gap-1'>
@@ -114,12 +118,21 @@ export default async function page({
             </div>
           </div>
         </div>
-        <p className='text-center text-sm opacity-60'>Jobs you have posted.</p>
+        {user.createdJobs.length !== 0 && (
+          <p className='text-center text-sm opacity-60'>
+            Jobs you have posted.
+          </p>
+        )}
         <div className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'>
           {user.createdJobs.map((job) => (
             <UserJob key={job.id} job={job} />
           ))}
         </div>
+        {user.createdJobs.length === 0 && (
+          <div className='text-center opacity-60 font-semibold'>
+            No jobs posted...
+          </div>
+        )}
       </section>
       <Pagination href='/profile' numberOfPages={numberOfPages} />
     </main>
