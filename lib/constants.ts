@@ -103,14 +103,10 @@ export type JobData = {
   numPages: number;
 };
 
-export type Question = {
-  type: 'multiple-choice' | 'text' | 'file-upload';
+export type Responses = {
+  answer: string;
   question: string;
 };
-
-export type Answers = {
-  response: string;
-} & Question;
 
 export const avatars = [
   'https://pc92dhkjxi.ufs.sh/f/8NNLpGsaQ1RnLUU0pEZkh31pATEdx0i7J9Df6jtreRn4Zm8N',

@@ -30,6 +30,7 @@ const getJob = cache(async (jobId: string, userId: string) => {
     },
     select: {
       cvUrl: true,
+      applications: true,
     },
   });
 
@@ -108,7 +109,21 @@ export default async function page({ params }: Props) {
             className='text-sm opacity-50 editor'
           />
         </div>
-        <ApplyBtn cvUrl={user.cvUrl} questions={job.questions} />
+        {user.applications.length > 0 &&
+        user.applications.find((aj) => aj.jobId === job.id) ? (
+          <ApplyBtn
+            disabled
+            cvUrl={user.cvUrl}
+            jobId={job.id}
+            questions={job.questions}
+          />
+        ) : (
+          <ApplyBtn
+            cvUrl={user.cvUrl}
+            jobId={job.id}
+            questions={job.questions}
+          />
+        )}
       </section>
     </main>
   );
