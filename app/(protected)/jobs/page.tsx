@@ -105,6 +105,11 @@ export default async function page({ searchParams }: Props) {
       />
       <section className='min-h-dvh'>
         <ManageJobs tab={tab} data={data} />
+        {data?.jobs.length === 0 && (
+          <div className='flex items-center justify-center font-semibold opacity-60 mt-10'>
+            No Jobs Available.
+          </div>
+        )}
         <CreateJobBtn />
       </section>
       <Pagination href={'/jobs'} numberOfPages={data.numPages} />

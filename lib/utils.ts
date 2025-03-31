@@ -14,16 +14,8 @@ export function currencyFormatter(value: number) {
   }).format(parseFloat(value.toString()));
 }
 
-export function getVisiblePages(numberOfPages: number, currentPage: number) {
-  const visiblePages = [];
-
-  const startPage = Math.max(1, currentPage - Math.floor(maxItems / 2));
-
-  const endPage = Math.min(numberOfPages, startPage + maxItems - 1);
-
-  for (let i = startPage; i <= endPage; i++) {
-    visiblePages.push(i);
-  }
-
-  return visiblePages;
+export function isStringArray(value: unknown): value is string[] {
+  return (
+    Array.isArray(value) && value.every((item) => typeof item === 'string')
+  );
 }

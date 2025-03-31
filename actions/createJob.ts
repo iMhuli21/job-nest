@@ -4,7 +4,11 @@ import { auth } from '@/auth';
 import prisma from '@/lib/db';
 import { createJobSchema, CreateJobType } from '@/lib/schemas';
 
-export async function createJobFn(values: CreateJobType, tags: string[]) {
+export async function createJobFn(
+  values: CreateJobType,
+  tags: string[],
+  questions: string[]
+) {
   const session = await auth();
 
   if (!session?.user?.id) {
@@ -71,6 +75,7 @@ export async function createJobFn(values: CreateJobType, tags: string[]) {
       salary,
       title,
       tags,
+      questions,
       author: {
         connect: {
           id: user.id,

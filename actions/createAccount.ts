@@ -20,6 +20,9 @@ export async function createAccountFn(values: SignUpType) {
 
     const fullName = `${firstName} ${lastName}`;
 
+    const avatarUrl =
+      'https://pc92dhkjxi.ufs.sh/f/8NNLpGsaQ1Rnn6MtQqGFXOqRy2JzGkamM4vwBogPhYEb6Z5N';
+
     const hashPassword = await bcrypt.hash(password, 10);
 
     await prisma.user.create({
@@ -29,6 +32,7 @@ export async function createAccountFn(values: SignUpType) {
         fullName,
         jobTitle,
         password: hashPassword,
+        avatarUrl,
       },
     });
     return {

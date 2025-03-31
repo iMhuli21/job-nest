@@ -45,6 +45,9 @@ const RichTextEditor = dynamic(() => import('@/components/richTextEditor'), {
 export default function CreateJob() {
   const [tag, setTag] = useState('');
   const [tags, setTags] = useState<string[]>([]);
+  const [question, setQuestion] = useState<string>('');
+  const [questions, setQuestions] = useState<string[]>([]);
+
   const form = useForm<CreateJobType>({
     defaultValues: {
       aboutCompany: '',
@@ -93,7 +96,7 @@ export default function CreateJob() {
       });
     }
 
-    const res = await createJobFn(values, tags);
+    const res = await createJobFn(values, tags, questions);
 
     if (res?.error) {
       return toast.error('Error', {
@@ -108,6 +111,24 @@ export default function CreateJob() {
 
       window.location.reload();
     }
+  };
+
+  const handleAddQuestion = () => {
+    if (questions.length === 0) {
+      setQuestions([question]);
+
+      setQuestion('');
+      return;
+    }
+
+    setQuestions((prev) => [...prev, question]);
+
+    setQuestion('');
+    return;
+  };
+
+  const handleRemoveQuestion = (question: string) => {
+    setQuestions((prev) => prev.filter((item) => item !== question));
   };
 
   return (
@@ -388,8 +409,42 @@ export default function CreateJob() {
                 </FormItem>
               )}
             />
+            <div className='flex flex-col items-start gap-2'>
+              <Label>Questions (Optional)</Label>
 
-            <Button className='flex items-center gap-2' disabled={isSubmitting}>
+              <div className='flex items-center gap-2 w-full'>
+                <Input
+                  className='flex-1'
+                  placeholder='Enter Question'
+                  value={question}
+                  onChange={(e) => setQuestion(e.target.value)}
+                />
+                <Button
+                  disabled={question.length === 0}
+                  type='button'
+                  variant='outline'
+                  onClick={handleAddQuestion}
+                >
+                  Add Question
+                </Button>
+              </div>
+              {questions.length > 0 && (
+                <div className='flex flex-col items-start gap-2 text-sm'>
+                  <span className='opacity-70'>Question:</span>
+                  {questions.map((q) => (
+                    <p key={q} onClick={() => handleRemoveQuestion(q)}>
+                      {q}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            <Button
+              type='submit'
+              className='flex items-center gap-2'
+              disabled={isSubmitting}
+            >
               {isSubmitting && (
                 <Loader2 className='animate-spin w-4 h-4 flex-none' />
               )}

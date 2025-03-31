@@ -7,13 +7,19 @@ import { format } from 'date-fns';
 import UserJob from '@/components/userJob';
 import { redirect } from 'next/navigation';
 import HeaderTitle from '@/components/headerTitle';
-import { Settings, Briefcase, Mail, CalendarDaysIcon } from 'lucide-react';
+import {
+  Settings,
+  Briefcase,
+  Mail,
+  CalendarDaysIcon,
+  ArrowUpRight,
+} from 'lucide-react';
 import NotFound from '@/components/notFound';
 import Pagination from '@/components/pagination';
 import { maxItems } from '@/lib/constants';
 import AvatarDialog from '@/components/avatarDialog';
 
-export const getProfileData = cache(async (id: string, page: number) => {
+const getProfileData = cache(async (id: string, page: number) => {
   const user = await prisma.user.findUnique({
     where: {
       id,
@@ -44,6 +50,7 @@ export const getProfileData = cache(async (id: string, page: number) => {
   return {
     user,
     numberOfPages,
+    numberOfJobs,
   };
 });
 
@@ -62,7 +69,7 @@ export default async function page({
 
   const currentPage = !page ? 1 : Number(page);
 
-  const { user, numberOfPages } = await getProfileData(
+  const { user, numberOfPages, numberOfJobs } = await getProfileData(
     session.user.id,
     currentPage
   );
@@ -79,7 +86,7 @@ export default async function page({
         <div className='flex items-center justify-center sm:justify-start gap-4 '>
           <AvatarDialog>
             <Image
-              src={user.avatarUrl!}
+              src={!user.avatarUrl ? '/avatar.png' : user.avatarUrl}
               alt='avatar'
               width={150}
               height={150}
@@ -99,15 +106,25 @@ export default async function page({
                 <Settings className='opacity-60' />
               </Link>
             </div>
-            <div className='flex items-center gap-2'>
-              <Briefcase className='opacity-60 size-5' />
-              <span className='opacity-60'>Created Jobs</span>
-              <span className='font-medium'>+{user.createdJobs.length}</span>
-            </div>
             <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8'>
               <div className='flex items-center gap-2'>
                 <Mail className='opacity-60 size-5' />
                 <span className='opacity-60'>{user.email}</span>
+              </div>
+              <a
+                href={!user.cvUrl ? '#' : user.cvUrl}
+                target='_blank'
+                className='flex items-center gap-1 py-2 px-3 bg-muted rounded-md text-sm'
+              >
+                <span className='opacity-60 font-semibold'>CV</span>
+                <ArrowUpRight className='opacity-60 size-4 flex-none' />
+              </a>
+            </div>
+            <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8'>
+              <div className='flex items-center gap-2'>
+                <Briefcase className='opacity-60 size-5' />
+                <span className='opacity-60'>Created Jobs</span>
+                <span className='font-medium'>+{numberOfJobs}</span>
               </div>
               <div className='flex items-center gap-2'>
                 <CalendarDaysIcon className='opacity-60 size-5' />

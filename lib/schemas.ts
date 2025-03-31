@@ -56,7 +56,6 @@ export const signInSchema = z.object({
 export type SignInType = z.infer<typeof signInSchema>;
 
 export const profileSchema = z.object({
-  cvUrl: z.string({ required_error: 'Cv url is required.' }),
   contactNumber: z.string({ required_error: 'Contact number is required.' }),
   fullName: z.string({ required_error: 'Full name is required.' }),
   email: z

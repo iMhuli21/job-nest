@@ -1,15 +1,15 @@
 import prisma from '@/lib/db';
 import Image from 'next/image';
-import { unstable_cache as cache } from 'next/cache';
-import { Button } from '@/components/ui/button';
+import { cache } from 'react';
+import { auth } from '@/auth';
+import { format } from 'date-fns';
+import { redirect } from 'next/navigation';
+import NotFound from '@/components/notFound';
+import ApplyBtn from '@/components/applyBtn';
+import { currencyFormatter } from '@/lib/utils';
 import HeaderTitle from '@/components/headerTitle';
 import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
 import { Building2, HandCoins, MapPinned, Clock2Icon } from 'lucide-react';
-import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
-import NotFound from '@/components/notFound';
-import { format } from 'date-fns';
-import { currencyFormatter } from '@/lib/utils';
 import RolesAndResponsibilities from '@/components/rolesAndResponsibilities';
 
 interface Props {
@@ -18,14 +18,24 @@ interface Props {
   }>;
 }
 
-const getJob = cache(async (jobId: string) => {
-  const job = await prisma.job.findUnique({
+const getJob = cache(async (jobId: string, userId: string) => {
+  const jobPromise = prisma.job.findUnique({
     where: {
       id: jobId,
     },
   });
+  const userPromise = prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+    select: {
+      cvUrl: true,
+    },
+  });
 
-  return job;
+  const [job, user] = await Promise.all([jobPromise, userPromise]);
+
+  return { job, user };
 });
 
 export default async function page({ params }: Props) {
@@ -37,9 +47,9 @@ export default async function page({ params }: Props) {
     return redirect(`/sign-in?returnUrl=${callbackUrl}`);
   }
 
-  const job = await getJob(id);
+  const { job, user } = await getJob(id, session.user.id);
 
-  if (!job) {
+  if (!job || !user) {
     return <NotFound message='Job not found.' />;
   }
 
@@ -98,7 +108,7 @@ export default async function page({ params }: Props) {
             className='text-sm opacity-50 editor'
           />
         </div>
-        <Button>Apply</Button>
+        <ApplyBtn cvUrl={user.cvUrl} questions={job.questions} />
       </section>
     </main>
   );

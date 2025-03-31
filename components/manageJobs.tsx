@@ -32,6 +32,7 @@ export default function ManageJobs({ tab, data }: Props) {
       >
         {data?.jobs && data.jobs.map((job) => <Job key={job.id} job={job} />)}
       </TabsContent>
+
       <TabsContent
         value='all'
         className='flex gap-4 items-center md:items-start justify-center xl:justify-start flex-wrap 2xl:grid 2xl:grid-cols-4'

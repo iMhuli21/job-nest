@@ -1,9 +1,23 @@
+import { auth } from '@/auth';
 import { maxItems } from '@/lib/constants';
 import prisma from '@/lib/db';
 import { NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
   try {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        {
+          error: 'User not logged in.',
+        },
+        {
+          status: 401,
+        }
+      );
+    }
+
     const url = new URL(req.url);
 
     const query = decodeURIComponent(url.searchParams.get('query') as string);

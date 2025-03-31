@@ -3,7 +3,18 @@ import Account from './Account';
 import Profile from './profile';
 import NotFound from './notFound';
 import { Button } from '@/components/ui/button';
-import { getProfileData } from '@/app/(protected)/profile/page';
+import { cache } from 'react';
+import prisma from '@/lib/db';
+
+const getUser = cache(async (userId: string) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  });
+
+  return user;
+});
 
 export default async function ManageAccount({
   tab,
@@ -12,7 +23,7 @@ export default async function ManageAccount({
   tab: string | null;
   userId: string;
 }) {
-  const user = await getProfileData(userId);
+  const user = await getUser(userId);
 
   if (!user) {
     return <NotFound message='User not found.' />;
