@@ -445,9 +445,7 @@ export default function CreateJob() {
               className='flex items-center gap-2'
               disabled={isSubmitting}
             >
-              {isSubmitting && (
-                <Loader2 className='animate-spin w-4 h-4 flex-none' />
-              )}
+              {isSubmitting && <Loader2 className='loader' />}
               Create Job
             </Button>
           </form>

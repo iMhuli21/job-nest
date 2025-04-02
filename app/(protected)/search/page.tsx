@@ -119,9 +119,7 @@ export default function SearchPage() {
                 onClick={handleSearch}
                 className='flex items-center gap-2'
               >
-                {isLoading && (
-                  <Loader2 className='animate-spin w-4 h-4 flex-none' />
-                )}
+                {isLoading && <Loader2 className='loader' />}
                 Search
               </Button>
             </div>

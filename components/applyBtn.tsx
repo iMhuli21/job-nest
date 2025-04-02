@@ -175,7 +175,7 @@ export default function ApplyBtn({ disabled, cvUrl, jobId, questions }: Props) {
             variant='yellow'
             onClick={handleSendApp}
           >
-            {loading && <Loader2 className='w-4 h-4 flex-none animate-spin' />}
+            {loading && <Loader2 className='loader' />}
             Send Application
           </Button>
         </DialogFooter>

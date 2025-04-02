@@ -7,7 +7,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { toast } from 'sonner';
 import { FormEvent, useState } from 'react';
 import { SearchIcon } from 'lucide-react';
 import { industries } from '@/lib/constants';

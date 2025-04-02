@@ -8,8 +8,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
+import Link from 'next/link';
 import { MoreHorizontal, PenLineIcon, Trash2, View } from 'lucide-react';
-export default function JobDropdownMenu() {
+
+export default function JobDropdownMenu({ jobId }: { jobId: string }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -18,20 +20,41 @@ export default function JobDropdownMenu() {
       <DropdownMenuContent className='font-[family-name:var(--font-nunito)]'>
         <DropdownMenuLabel>Options</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className='flex items-center gap-2 w-full'>
-          <PenLineIcon className='flex-none w-5 h-5' />
-          <span>Edit Job</span>
+        <DropdownMenuItem asChild>
+          <Link
+            className='flex items-center gap-2 w-full'
+            href={`/job/${jobId}/edit`}
+          >
+            <PenLineIcon className='flex-none w-5 h-5' />
+            <span>Edit Job</span>
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className='flex items-center gap-2 w-full'>
-          <Trash2 className='flex-none w-5 h-5' />
-          <span>Delete Job</span>
+        <DropdownMenuItem asChild>
+          <Link
+            className='flex items-center gap-2 w-full'
+            href={`/job/${jobId}`}
+          >
+            <Trash2 className='flex-none w-5 h-5' />
+            <span>Delete Job</span>
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem
-          className='flex items-center gap-2 w-full'
-          onClick={() => window.location.assign('/job/1/applicants')}
-        >
-          <View className='flex-none w-5 h-5' />
-          <span>View Job Applicants</span>
+        <DropdownMenuItem asChild>
+          <Link
+            className='flex items-center gap-2 w-full'
+            href={`/job/${jobId}`}
+          >
+            <View className='flex-none w-5 h-5' />
+            <span>View Job</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link
+            className='flex items-center gap-2 w-full'
+            href={`/job/${jobId}/applicants`}
+          >
+            <View className='flex-none w-5 h-5' />
+            <span>View Job Applicants</span>
+          </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

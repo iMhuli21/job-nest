@@ -136,6 +136,12 @@ export default function Profile({ user }: Props) {
               )}
             </div>
             {files.length > 0 && (
+              <span className='text-sm mb-2'>
+                Note: Please note that to make any changes you have save the
+                changes you make.
+              </span>
+            )}
+            {files.length > 0 && (
               <div className='flex items-center gap-2'>
                 <Button
                   className='flex items-center gap-2'
@@ -143,9 +149,7 @@ export default function Profile({ user }: Props) {
                   variant='secondary'
                   onClick={() => startUpload(files)}
                 >
-                  {isUploading && (
-                    <Loader2 className='w-4 h-4 flex-none animate-spin' />
-                  )}
+                  {isUploading && <Loader2 className='loader' />}
                   Upload File
                 </Button>
                 <Button disabled={isUploading} onClick={() => setFiles([])}>
@@ -214,9 +218,7 @@ export default function Profile({ user }: Props) {
             variant={'yellow'}
             className='flex items-center gap-2'
           >
-            {isSubmitting && (
-              <Loader2 className='animate-spin w-4 h-4 flex-none' />
-            )}
+            {isSubmitting && <Loader2 className='loader' />}
             Save Changes
           </Button>
         </form>

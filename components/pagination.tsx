@@ -18,6 +18,7 @@ export default function Pagination({
   const tab = search.get('tab') as string;
   const industry = search.get('industry') as string;
   const query = search.get('query') as string;
+  const status = search.get('status') as string;
 
   const currentPage = !search.get('page') ? 1 : Number(search.get('page'));
 
@@ -46,7 +47,13 @@ export default function Pagination({
   const paginationPages = getVisiblePages();
 
   const handlePrevious = () => {
-    if (industry || query) {
+    if (query || status) {
+      return route.push(
+        `${href}?status=${encodeURIComponent(
+          status
+        )}&query=${encodeURIComponent(query)}&page=${currentPage - 1}`
+      );
+    } else if (industry || query) {
       return route.push(
         `${href}?industry=${encodeURIComponent(
           industry
@@ -58,7 +65,13 @@ export default function Pagination({
     return route.push(`${href}?page=${currentPage - 1}`);
   };
   const handleNext = () => {
-    if (industry || query) {
+    if (query || status) {
+      return route.push(
+        `${href}?status=${encodeURIComponent(
+          status
+        )}&query=${encodeURIComponent(query)}&page=${currentPage + 1}`
+      );
+    } else if (industry || query) {
       return route.push(
         `${href}?industry=${encodeURIComponent(
           industry
@@ -71,7 +84,13 @@ export default function Pagination({
   };
 
   const handlePagePress = (page: number) => {
-    if (industry || query) {
+    if (query || status) {
+      return route.push(
+        `${href}?status=${encodeURIComponent(
+          status
+        )}&query=${encodeURIComponent(query)}&page=${page}`
+      );
+    } else if (industry || query) {
       return route.push(
         `${href}?industry=${encodeURIComponent(
           industry

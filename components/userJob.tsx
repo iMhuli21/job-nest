@@ -1,29 +1,26 @@
 'use client';
 
 import Image from 'next/image';
-import { Badge } from './ui/badge';
-import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { HandCoins, MapPinned, Clock2Icon } from 'lucide-react';
-import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
-import JobDropdownMenu from './jobDropdownmenu';
-import { Job } from '@prisma/client';
-import { currencyFormatter } from '@/lib/utils';
 import { format } from 'date-fns';
+import { Badge } from './ui/badge';
+import { Job } from '@prisma/client';
+import { motion } from 'framer-motion';
+import JobDropdownMenu from './jobDropdownmenu';
+import { currencyFormatter } from '@/lib/utils';
+import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
+import { HandCoins, MapPinned, Clock2Icon } from 'lucide-react';
 
 interface Props {
   job: Job;
 }
 
 export default function UserJob({ job }: Props) {
-  const route = useRouter();
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className='font-[family-name:var(--font-nunito)] p-4 border rounded-md shadow flex flex-col items-start gap-4 w-[350px] hover:cursor-pointer bg-inherit '
-      onClick={() => route.push(`/job/${job.id}`)}
     >
       <div className='flex items-start w-full gap-4 justify-between'>
         <div className='flex items-center gap-4 flex-1'>
@@ -41,7 +38,7 @@ export default function UserJob({ job }: Props) {
             </h4>
           </div>
         </div>
-        <JobDropdownMenu />
+        <JobDropdownMenu jobId={job.id} />
       </div>
 
       <div className='flex items-center gap-4 w-full'>

@@ -130,9 +130,7 @@ export default function SignIn() {
               variant='yellow'
               className='font-semibold'
             >
-              {isSubmitting && (
-                <Loader2 className='animate-spin w-4 h-4 flex-none ' />
-              )}
+              {isSubmitting && <Loader2 className='loader' />}
               Log In
             </Button>
           </div>

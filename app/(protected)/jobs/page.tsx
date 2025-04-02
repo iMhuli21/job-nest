@@ -55,9 +55,6 @@ const getJobs = cache(
             mode: 'insensitive',
           },
         },
-        orderBy: {
-          createdAt: 'desc',
-        },
       });
       const numPages = Math.ceil(numberOfJobs / maxItems);
 
@@ -69,6 +66,9 @@ const getJobs = cache(
       const jobs = await prisma.job.findMany({
         take: maxItems,
         skip: (currentPage - 1) * maxItems,
+        orderBy: {
+          createdAt: 'desc',
+        },
       });
 
       const numberOfJobs = await prisma.job.count();

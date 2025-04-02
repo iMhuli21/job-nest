@@ -1,4 +1,4 @@
-import { auth, signOut } from '@/auth';
+import { auth } from '@/auth';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -7,11 +7,10 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
-import { routes } from '@/lib/constants';
 import Link from 'next/link';
-import { CgMenuRight } from 'react-icons/cg';
-import { Button } from './ui/button';
 import SignOutBtn from './signOutBtn';
+import { routes } from '@/lib/constants';
+import { CgMenuRight } from 'react-icons/cg';
 
 export default async function MenuDropdown() {
   const session = await auth();
@@ -31,7 +30,7 @@ export default async function MenuDropdown() {
           ))}
         </div>
         <DropdownMenuItem asChild>
-          {session ? (
+          {session?.user?.id ? (
             <SignOutBtn />
           ) : (
             <Link href='/sign-in' className='h-9 px-4 py-2 w-full'>

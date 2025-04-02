@@ -87,9 +87,7 @@ export default function Account() {
               variant={'default'}
               className='flex items-center gap-2'
             >
-              {isSubmitting && (
-                <Loader2 className='w-4 h-4 flex-none animate-spin' />
-              )}
+              {isSubmitting && <Loader2 className='loader' />}
               Save Changes
             </Button>
           </form>

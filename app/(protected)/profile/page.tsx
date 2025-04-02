@@ -83,7 +83,7 @@ export default async function page({
       <HeaderTitle title='Profile' subtitle='Manage your account.' />
 
       <section className='min-h-dvh space-y-7'>
-        <div className='flex items-center justify-center sm:justify-start gap-4 '>
+        <div className='flex flex-col sm:flex-row items-center justify-center sm:justify-start gap-4'>
           <AvatarDialog>
             <Image
               src={!user.avatarUrl ? '/avatar.png' : user.avatarUrl}
@@ -107,10 +107,6 @@ export default async function page({
               </Link>
             </div>
             <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8'>
-              <div className='flex items-center gap-2'>
-                <Mail className='opacity-60 size-5' />
-                <span className='opacity-60'>{user.email}</span>
-              </div>
               <a
                 href={!user.cvUrl ? '#' : user.cvUrl}
                 target='_blank'
@@ -119,6 +115,10 @@ export default async function page({
                 <span className='opacity-60 font-semibold'>CV</span>
                 <ArrowUpRight className='opacity-60 size-4 flex-none' />
               </a>
+              <div className='flex items-center gap-2'>
+                <Mail className='opacity-60 size-5' />
+                <span className='opacity-60'>{user.email}</span>
+              </div>
             </div>
             <div className='flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-8'>
               <div className='flex items-center gap-2'>
