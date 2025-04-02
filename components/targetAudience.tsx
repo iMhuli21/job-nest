@@ -31,7 +31,7 @@ export default function TargetAudience() {
             transition={{ duration: 0.5 }}
           >
             <Card>
-              <CardContent className='flex flex-col items-center gap-4'>
+              <CardContent className='font-[family-name:var(--font-nunito)] flex flex-col items-center gap-4'>
                 <GraduationCap className='size-12' />
                 <h2 className='text-xl font-semibold'>
                   {audienceData[selected].title}
@@ -50,7 +50,7 @@ export default function TargetAudience() {
             transition={{ duration: 0.5 }}
           >
             <Card>
-              <CardContent className='flex flex-col items-center gap-4'>
+              <CardContent className='flex flex-col items-center gap-4 font-[family-name:var(--font-nunito)]'>
                 <Briefcase className='size-12' />
                 <h2 className='text-xl font-semibold'>
                   {audienceData[selected].title}
@@ -69,7 +69,7 @@ export default function TargetAudience() {
             transition={{ duration: 0.5 }}
           >
             <Card>
-              <CardContent className='flex flex-col items-center gap-4'>
+              <CardContent className='flex flex-col items-center gap-4 font-[family-name:var(--font-nunito)]'>
                 <Paintbrush className='size-12' />
                 <h2 className='text-xl font-semibold'>
                   {audienceData[selected].title}
@@ -88,7 +88,7 @@ export default function TargetAudience() {
             transition={{ duration: 0.5 }}
           >
             <Card>
-              <CardContent className='flex flex-col items-center gap-4'>
+              <CardContent className='flex flex-col items-center gap-4 font-[family-name:var(--font-nunito)]'>
                 <Globe className='size-12' />
                 <h2 className='text-xl font-semibold'>
                   {audienceData[selected].title}

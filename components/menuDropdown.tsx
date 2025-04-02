@@ -33,7 +33,7 @@ export default async function MenuDropdown() {
           {session?.user?.id ? (
             <SignOutBtn />
           ) : (
-            <Link href='/sign-in' className='h-9 px-4 py-2 w-full'>
+            <Link href='/sign-in' className='h-9 p-2 w-full'>
               Sign In
             </Link>
           )}

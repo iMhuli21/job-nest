@@ -38,7 +38,7 @@ export default function SearchApplicants({ id }: { id: string }) {
         <SelectTrigger className='max-w-[300px] w-full'>
           <SelectValue placeholder='Select Job Status' />
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className='font-[family-name:var(--font-nunito)]'>
           <SelectItem value='applied'>Applicants</SelectItem>
           <SelectItem value='shortlisted'>Shortlisted</SelectItem>
           <SelectItem value='rejected'>Rejected</SelectItem>

@@ -17,9 +17,12 @@ import { Button } from '@/components/ui/button';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { accountSchema, AccountType } from '@/lib/schemas';
 import { changePasswordFn } from '@/actions/changePassword';
+import { deleteAccFn } from '@/actions/deleteAccount';
+import { useState } from 'react';
 
 export default function Account() {
   const route = useRouter();
+  const [loading, setLoading] = useState(false);
   const form = useForm<AccountType>({
     defaultValues: {
       password: '',
@@ -47,6 +50,25 @@ export default function Account() {
       });
 
       return route.push('/sign-in');
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    setLoading(true);
+    const res = await deleteAccFn();
+
+    if (res?.error) {
+      setLoading(false);
+      return toast.error('Error', {
+        description: res.error,
+      });
+    } else if (res?.success) {
+      setLoading(false);
+      toast.success('Success', {
+        description: res.success,
+      });
+
+      return route.refresh();
     }
   };
 
@@ -83,7 +105,7 @@ export default function Account() {
             />
 
             <Button
-              disabled={isSubmitting}
+              disabled={isSubmitting || loading}
               variant={'default'}
               className='flex items-center gap-2'
             >
@@ -98,8 +120,14 @@ export default function Account() {
             By initiating this action your related data including your job posts
             will all be deleted. This action is irrevisable.
           </p>
-          <Button className='flex items-center' variant='destructive'>
-            <Trash2 />
+          <Button
+            disabled={loading || isSubmitting}
+            onClick={handleDeleteAccount}
+            className='flex items-center gap-2'
+            variant='destructive'
+          >
+            {loading && <Loader2 className='loader' />}
+            <Trash2 className='w-4 h-4 flex-none' />
             <span>Delete Account</span>
           </Button>
         </div>

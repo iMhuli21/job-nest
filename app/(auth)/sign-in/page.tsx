@@ -56,10 +56,12 @@ export default function SignIn() {
         const redirectUrl = search.get('returnUrl') as string;
 
         if (redirectUrl) {
-          return route.push(`${decodeURIComponent(redirectUrl)}`);
+          route.push(`${decodeURIComponent(redirectUrl)}`);
+          return route.refresh();
         }
 
-        return route.push('/jobs');
+        route.push('/jobs');
+        return route.refresh();
       }
     } catch (e) {
       if (e instanceof Error) {

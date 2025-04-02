@@ -21,7 +21,7 @@ export default function SignOutBtn() {
     <Button
       disabled={loading}
       variant={'ghost'}
-      className='w-full flex items-center gap-2'
+      className='w-full flex items-center justify-start gap-2 text-left pl-2'
       onClick={handleSignOut}
     >
       {loading && <Loader2 className='loader' />}

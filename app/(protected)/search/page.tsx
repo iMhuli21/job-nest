@@ -88,7 +88,7 @@ export default function SearchPage() {
               <SelectValue placeholder='Select industry' />
             </SelectTrigger>
 
-            <SelectContent>
+            <SelectContent className='font-[family-name:var(--font-nunito)]'>
               {industries.map((industry) => (
                 <SelectItem value={industry} key={industry}>
                   {industry}
