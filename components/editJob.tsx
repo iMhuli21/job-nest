@@ -20,47 +20,52 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
+import { toast } from 'sonner';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import dynamic from 'next/dynamic';
+import { Job } from '@prisma/client';
 import { useForm } from 'react-hook-form';
-import { CalendarIcon, Loader2 } from 'lucide-react';
+import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { updateJobFn } from '@/actions/updateJob';
 import HeaderTitle from '@/components/headerTitle';
 import { Calendar } from '@/components/ui/calendar';
 import { Textarea } from '@/components/ui/textarea';
+import { CalendarIcon, Loader2 } from 'lucide-react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createJobSchema, CreateJobType } from '@/lib/schemas';
 import { contractTypes, experienceLevels, industries } from '@/lib/constants';
-import { Label } from '@/components/ui/label';
-import { createJobFn } from '@/actions/createJob';
-import { toast } from 'sonner';
 
 const RichTextEditor = dynamic(() => import('@/components/richTextEditor'), {
   ssr: false,
 });
 
-export default function CreateJob() {
+interface Props {
+  job: Job;
+}
+
+export default function EditJob({ job }: Props) {
   const [tag, setTag] = useState('');
-  const [tags, setTags] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>(job.tags);
   const [question, setQuestion] = useState<string>('');
-  const [questions, setQuestions] = useState<string[]>([]);
+  const [questions, setQuestions] = useState<string[]>(job.questions);
 
   const form = useForm<CreateJobType>({
     defaultValues: {
-      aboutCompany: '',
-      closeDate: undefined,
-      company: '',
-      contract: '',
-      description: '',
-      experienceLevel: '',
-      industry: '',
-      location: '',
-      rolesAndResponsibilities: '',
-      salary: 0,
-      title: '',
+      aboutCompany: job.aboutCompany,
+      closeDate: job.createdAt,
+      company: job.company,
+      contract: job.contract,
+      description: job.description,
+      experienceLevel: job.experienceLevel,
+      industry: job.industry,
+      location: job.location,
+      rolesAndResponsibilities: job.rolesAndResponsibilities,
+      salary: job.salary,
+      title: job.title,
     },
     mode: 'onChange',
     resolver: zodResolver(createJobSchema),
@@ -96,7 +101,7 @@ export default function CreateJob() {
       });
     }
 
-    const res = await createJobFn(values, tags, questions);
+    const res = await updateJobFn(job.id, values, tags, questions);
 
     if (res?.error) {
       return toast.error('Error', {
@@ -133,7 +138,10 @@ export default function CreateJob() {
 
   return (
     <main className='px-4 font-[family-name:var(--font-nunito)] space-y-10 py-5'>
-      <HeaderTitle title='Create job' subtitle='Create a job opportunity.' />
+      <HeaderTitle
+        title='Update job'
+        subtitle='Update details on about the job.'
+      />
       <section className='min-h-dvh'>
         <Form {...form}>
           <form
@@ -450,7 +458,7 @@ export default function CreateJob() {
               disabled={isSubmitting}
             >
               {isSubmitting && <Loader2 className='loader' />}
-              Create Job
+              Update Job
             </Button>
           </form>
         </Form>

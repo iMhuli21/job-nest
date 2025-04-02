@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 import { MoreHorizontal, PenLineIcon, Trash2, View } from 'lucide-react';
+import DeleteDialog from './deleteDialog';
 
 export default function JobDropdownMenu({ jobId }: { jobId: string }) {
   return (
@@ -29,15 +30,7 @@ export default function JobDropdownMenu({ jobId }: { jobId: string }) {
             <span>Edit Job</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link
-            className='flex items-center gap-2 w-full'
-            href={`/job/${jobId}`}
-          >
-            <Trash2 className='flex-none w-5 h-5' />
-            <span>Delete Job</span>
-          </Link>
-        </DropdownMenuItem>
+        <DeleteDialog id={jobId} />
         <DropdownMenuItem asChild>
           <Link
             className='flex items-center gap-2 w-full'

@@ -15,7 +15,7 @@ interface Props {
   answers: JsonValue[];
 }
 
-export default function ResponsesDropdown({ answers }: Props) {
+export default function ResponsesDialog({ answers }: Props) {
   return (
     <Dialog>
       <DialogTrigger asChild className='pl-2'>

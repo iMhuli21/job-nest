@@ -16,7 +16,7 @@ import {
 import { useState } from 'react';
 import { $Enums } from '@prisma/client';
 import { MoreHorizontal } from 'lucide-react';
-import ResponsesDropdown from './responsesDropdown';
+import ResponsesDialog from './responsesDialog';
 import { JsonValue } from '@prisma/client/runtime/library';
 import { toast } from 'sonner';
 import { useRouter } from 'next/navigation';
@@ -100,7 +100,7 @@ export default function ApplicantDropdown({
             View CV
           </a>
         </DropdownMenuItem>
-        {answers.length > 0 && <ResponsesDropdown answers={answers} />}
+        {answers.length > 0 && <ResponsesDialog answers={answers} />}
       </DropdownMenuContent>
     </DropdownMenu>
   );
