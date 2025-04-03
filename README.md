@@ -1,6 +1,17 @@
 # <h1 align='center'>Job Nest</h1>
 <p align='center'>Empowering careers through seamless job connections.</p>
 
+## 🛠 Technologies Used
+![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Zod](https://img.shields.io/badge/Zod-5A67D8?style=for-the-badge&logo=zod&logoColor=white)
+![Shadcn](https://img.shields.io/badge/Shadcn-black?style=for-the-badge&logo=shadcn&logoColor=white)
+
+
 ## Table of Contents
 - [Overview](#overview)
 - [Getting Started](#gettingstarted)
