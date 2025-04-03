@@ -2,7 +2,6 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Responses } from './constants';
 import { Status } from '@prisma/client';
-import { JsonValue } from '@prisma/client/runtime/library';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

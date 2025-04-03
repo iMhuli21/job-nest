@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
 } from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
-import { MoreHorizontal, PenLineIcon, Trash2, View } from 'lucide-react';
+import { MoreHorizontal, PenLineIcon, View } from 'lucide-react';
 import DeleteDialog from './deleteDialog';
 
 export default function JobDropdownMenu({ jobId }: { jobId: string }) {

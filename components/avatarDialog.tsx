@@ -4,8 +4,6 @@ import {
   Dialog,
   DialogTrigger,
   DialogContent,
-  DialogClose,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogDescription,
@@ -13,7 +11,6 @@ import {
 import React from 'react';
 import Image from 'next/image';
 import { toast } from 'sonner';
-import { Button } from './ui/button';
 import { avatars } from '@/lib/constants';
 import { useRouter } from 'next/navigation';
 import { updateAvatarFn } from '@/actions/updateAvatar';
