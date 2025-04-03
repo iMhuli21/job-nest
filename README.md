@@ -10,6 +10,8 @@
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwindcss&logoColor=white)
 ![Zod](https://img.shields.io/badge/Zod-5A67D8?style=for-the-badge&logo=zod&logoColor=white)
 ![Shadcn](https://img.shields.io/badge/Shadcn-black?style=for-the-badge&logo=shadcn&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+
 
 
 ## Table of Contents
