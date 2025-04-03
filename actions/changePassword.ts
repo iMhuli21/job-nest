@@ -1,8 +1,8 @@
 'use server';
 
-import { auth, signOut } from '@/auth';
 import prisma from '@/lib/db';
 import bcrypt from 'bcryptjs';
+import { auth, signOut } from '@/auth';
 import { accountSchema, AccountType } from '@/lib/schemas';
 
 export async function changePasswordFn(values: AccountType) {
@@ -55,7 +55,7 @@ export async function changePasswordFn(values: AccountType) {
   ///Sign out the user
 
   await signOut({
-    redirect: false,
+    redirectTo: '/sign-in',
   });
 
   return {

@@ -61,11 +61,15 @@ export default async function page({
 }) {
   const session = await auth();
 
-  if (!session?.user?.id) {
-    redirect(`/sign-in?returnUrl=${encodeURIComponent('/profile')}`);
-  }
-
   const { page } = await searchParams;
+
+  if (!session?.user?.id) {
+    if (page) {
+      const callbackUrl = encodeURIComponent(`/profile?page=${page}`);
+      return redirect(`/sign-in?returnUrl=${callbackUrl})}`);
+    }
+    return redirect(`/sign-in?returnUrl=${encodeURIComponent('/profile')})}`);
+  }
 
   const currentPage = !page ? 1 : Number(page);
 

@@ -49,7 +49,7 @@ export default function Account() {
         description: res.success,
       });
 
-      return route.push('/sign-in');
+      return route.refresh();
     }
   };
 
