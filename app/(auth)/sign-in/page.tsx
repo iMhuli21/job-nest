@@ -18,8 +18,9 @@ import { loginUserFn } from '@/actions/loginUser';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { signInSchema, SignInType } from '@/lib/schemas';
 import { Loader2 } from 'lucide-react';
+import { Suspense } from 'react';
 
-export default function SignIn() {
+function SignIn() {
   const route = useRouter();
   const search = useSearchParams();
 
@@ -139,5 +140,13 @@ export default function SignIn() {
         </form>
       </Form>
     </main>
+  );
+}
+
+export default function SignInPage() {
+  return (
+    <Suspense>
+      <SignIn />
+    </Suspense>
   );
 }
