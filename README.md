@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# <h1 align='center'>Job Nest</h1>
+<p align='center'>Empowering careers through seamless job connections.</p>
+
+## Table of Contents
+- [Overview](#overview)
+- [Getting Started](#gettingstarted)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+  - [Usage](#usage)
+
+## Overview
+JobNest is a powerful web application design to revolutionize job management and recruitment process.
+
+###### Why JobNest?
+This project streamlines the recruitment journey, providing a user-friendly platform for job seekers and employers alike. The core features include:
+
+- PostCSS with Tailwind CSS: Streamlines styling and design capabilities for responsive UI development.
+- NextAuth Authentication: Simplifies user sign-in and session management, enhancing security and user experience.
+- Prisma Integration: Facilitates efficient database interactiions, ensuring data integrity and easy management of job applications.
+- Dynamic Job Management: Allows users to create, update and delete jobs postings seamlessly, enhancing user engagement.
+- Responsive Design: Ensures optimal user experience across devices, catering to both job seekers and employers.
 
 ## Getting Started
+### Prerequisites
+This project requires the following dependencies:
+- Programming language: TypeScript
+- Package manager: NPM
 
-First, run the development server:
+### Installation
+Build jobnest from the source and install dependencies:
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/iMhuli21/job-nest
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. Navigate to the project directory:
+   ```sh
+   cd job-nest
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Install the dependencies
+   Using NPM:
+   ```sh
+   npm install
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
+Run the project with
+###### Using NPM
+```sh
+npm start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
