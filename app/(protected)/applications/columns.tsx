@@ -13,6 +13,7 @@ import {
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
 import { format, parseISO } from 'date-fns';
+import { toDate } from '@/lib/utils';
 
 export type Data = {
   id: string;
@@ -50,9 +51,8 @@ export const columns: ColumnDef<Data>[] = [
       );
     },
     cell({ row }) {
-      return (
-        <p>{format(parseISO(row.getValue('createdAt')), 'dd MMMM yyyy')}</p>
-      );
+      const date = toDate(row.getValue('createdAt'));
+      return <p>{date ? format(date, 'dd MMMM yyyy') : '—'}</p>;
     },
   },
   {
@@ -60,9 +60,8 @@ export const columns: ColumnDef<Data>[] = [
     accessorKey: 'job.closeDate',
     header: 'Close Date',
     cell({ row }) {
-      return (
-        <p>{format(parseISO(row.getValue('job.closeDate')), 'dd MMMM yyyy')}</p>
-      );
+      const date = toDate(row.getValue('job.closeDate'));
+      return <p>{date ? format(date, 'dd MMMM yyyy') : '—'}</p>;
     },
   },
   {
