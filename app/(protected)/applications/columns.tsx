@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button';
 import { $Enums } from '@prisma/client';
 import { ColumnDef } from '@tanstack/react-table';
-import { format } from 'date-fns';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
+import { format } from 'date-fns';
 
 export type Data = {
   id: string;
