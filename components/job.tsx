@@ -8,7 +8,7 @@ import { HandCoins, MapPinned, Clock2Icon } from 'lucide-react';
 import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
 import { Job as JobType } from '@prisma/client';
 import { format } from 'date-fns';
-import { currencyFormatter } from '@/lib/utils';
+import { currencyFormatter, toDate } from '@/lib/utils';
 
 interface Props {
   job: JobType;
@@ -16,6 +16,7 @@ interface Props {
 
 export default function Job({ job }: Props) {
   const route = useRouter();
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -72,7 +73,7 @@ export default function Job({ job }: Props) {
         <Badge variant='black'>{job.tags[1]}</Badge>
       </div>
       <p className='text-xs opacity-50'>
-        Posted on {format(job.createdAt, 'dd MMMM yyyy')}
+        Posted on {format(toDate(job.createdAt), 'dd MMMM yyyy')}
       </p>
     </motion.div>
   );

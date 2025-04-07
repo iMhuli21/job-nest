@@ -18,6 +18,7 @@ import NotFound from '@/components/notFound';
 import Pagination from '@/components/pagination';
 import { maxItems } from '@/lib/constants';
 import AvatarDialog from '@/components/avatarDialog';
+import { toDate } from '@/lib/utils';
 
 const getProfileData = cache(async (id: string, page: number) => {
   const user = await prisma.user.findUnique({
@@ -133,7 +134,7 @@ export default async function page({
               <div className='flex items-center gap-2'>
                 <CalendarDaysIcon className='opacity-60 size-5' />
                 <span className='opacity-60'>
-                  Joined, {format(user.createdAt, 'dd MMMM yyyy')}
+                  Joined, {format(toDate(user.createdAt), 'dd MMMM yyyy')}
                 </span>
               </div>
             </div>

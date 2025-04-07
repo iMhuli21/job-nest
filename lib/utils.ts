@@ -2,6 +2,7 @@ import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import { Responses } from './constants';
 import { Status } from '@prisma/client';
+import { parseISO } from 'date-fns';
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -42,3 +43,6 @@ export function isValidResponseArr(value: unknown): value is Responses[] {
 export function isValidJobStatus(value: string): boolean {
   return Object.keys(Status).includes(value as Status);
 }
+
+export const toDate = (value: string | Date) =>
+  typeof value === 'string' ? parseISO(value) : value;

@@ -6,7 +6,7 @@ import { Badge } from './ui/badge';
 import { Job } from '@prisma/client';
 import { motion } from 'framer-motion';
 import JobDropdownMenu from './jobDropdownmenu';
-import { currencyFormatter } from '@/lib/utils';
+import { currencyFormatter, toDate } from '@/lib/utils';
 import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
 import { HandCoins, MapPinned, Clock2Icon } from 'lucide-react';
 
@@ -71,7 +71,7 @@ export default function UserJob({ job }: Props) {
         <Badge variant='black'>{job.tags[1]}</Badge>
       </div>
       <p className='text-xs opacity-50'>
-        Posted on {format(job.createdAt, 'dd MMMM yyyy')}
+        Posted on {format(toDate(job.createdAt), 'dd MMMM yyyy')}
       </p>
     </motion.div>
   );

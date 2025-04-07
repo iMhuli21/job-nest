@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
 import Link from 'next/link';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 export type Data = {
   id: string;
@@ -50,7 +50,9 @@ export const columns: ColumnDef<Data>[] = [
       );
     },
     cell({ row }) {
-      return <p>{format(row.getValue('createdAt'), 'dd MMMM yyyy')}</p>;
+      return (
+        <p>{format(parseISO(row.getValue('createdAt')), 'dd MMMM yyyy')}</p>
+      );
     },
   },
   {
@@ -58,7 +60,9 @@ export const columns: ColumnDef<Data>[] = [
     accessorKey: 'job.closeDate',
     header: 'Close Date',
     cell({ row }) {
-      return <p>{format(row.getValue('job.closeDate'), 'dd MMMM yyyy')}</p>;
+      return (
+        <p>{format(parseISO(row.getValue('job.closeDate')), 'dd MMMM yyyy')}</p>
+      );
     },
   },
   {

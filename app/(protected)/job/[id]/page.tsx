@@ -2,11 +2,11 @@ import prisma from '@/lib/db';
 import Image from 'next/image';
 import { cache } from 'react';
 import { auth } from '@/auth';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import { redirect } from 'next/navigation';
 import NotFound from '@/components/notFound';
 import ApplyBtn from '@/components/applyBtn';
-import { currencyFormatter } from '@/lib/utils';
+import { currencyFormatter, toDate } from '@/lib/utils';
 import HeaderTitle from '@/components/headerTitle';
 import { HiOutlineAdjustmentsVertical } from 'react-icons/hi2';
 import { Building2, HandCoins, MapPinned, Clock2Icon } from 'lucide-react';
@@ -90,7 +90,7 @@ export default async function page({ params }: Props) {
           <div className='flex items-end gap-2 opacity-50'>
             <Clock2Icon className='w-5 h-5' />
             <span className='text-sm capitalize'>
-              Close date: {format(job.createdAt, 'dd MMMM yyyy')}
+              Close date: {format(toDate(job.createdAt), 'dd MMMM yyyy')}
             </span>
           </div>
         </div>

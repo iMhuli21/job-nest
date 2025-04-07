@@ -22,7 +22,7 @@ import {
 } from '@/components/ui/popover';
 import { toast } from 'sonner';
 import { useState } from 'react';
-import { cn } from '@/lib/utils';
+import { cn, toDate } from '@/lib/utils';
 import { format } from 'date-fns';
 import dynamic from 'next/dynamic';
 import { Job } from '@prisma/client';
@@ -221,7 +221,7 @@ export default function EditJob({ job }: Props) {
                           >
                             <CalendarIcon className='h-4 w-4 opacity-50' />
                             {field.value ? (
-                              format(field.value, 'PPP')
+                              format(toDate(field.value), 'PPP')
                             ) : (
                               <span className='text-start'>Pick a date</span>
                             )}
